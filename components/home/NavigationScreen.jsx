@@ -1,14 +1,17 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FeedScreen from './feed/FeedScreen';
 import SavedScreen from './saved/SavedScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../../constants';
+import LoginScreen from './login/Login';
 
 const Tabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-function HomeTabs() {
+function HomeTabs({navigation}) {
   return (
     <Tabs.Navigator
       initialRouteName="Feed"
@@ -44,7 +47,18 @@ function HomeTabs() {
 export default function NavigationScreen() {
   return (
     <NavigationContainer>
-      <HomeTabs />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HomeTabs"
+          component={HomeTabs}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

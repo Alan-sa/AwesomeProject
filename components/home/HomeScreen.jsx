@@ -4,7 +4,8 @@ import {COLORS, icons, images, SIZES} from '../../constants';
 // import {COLORS, icons, images, SIZES} from '../../../constants';
 // import {Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome} from '../home';
 import {Nearbyjobs, Popularjobs, Welcome} from '../index';
-const HomeScreen = () => {
+
+const HomeScreen = ({navigation}) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (

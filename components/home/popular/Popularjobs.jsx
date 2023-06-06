@@ -10,9 +10,11 @@ import styles from './popularjobs.style';
 import {COLORS, SIZES} from '../../../constants';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import useFetch from '../../../hook/useFetch';
+import {useNavigation} from '@react-navigation/native';
 
 const Popularjobs = () => {
   // const router = useRouter();
+  const navigation = useNavigation();
   const {data, isLoading, error} = useFetch('search', {
     query: 'React developer',
     page: 1,
@@ -21,6 +23,7 @@ const Popularjobs = () => {
   const [selectedJob, setSelectedJob] = useState();
   const handleCardPress = item => {
     // router.push(`/job-details/${item.job_id}`);
+    navigation.navigate('JobDetail', {params: item});
     setSelectedJob(item.job_id);
   };
 
