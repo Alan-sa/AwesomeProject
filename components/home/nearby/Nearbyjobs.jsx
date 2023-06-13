@@ -6,9 +6,9 @@ import {COLORS} from '../../../constants';
 import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard';
 import useFetch from '../../../hook/useFetch';
 
-const NearbyJobs = () => {
+const NearbyJobs = ({navigation}) => {
   const {data, isLoading, error} = useFetch('search', {
-    query: 'React developer',
+    query: 'React Native Developer',
     page: 1,
     num_pages: 1,
   });
@@ -29,11 +29,7 @@ const NearbyJobs = () => {
           <Text style={styles.errorText}>Error fetching data</Text>
         ) : (
           data?.map(job => (
-            <NearbyJobCard
-              job={job}
-              key={'nerby-job-' + job?.job_id}
-              handleNavigate={() => router.push('/job-details/' + job?.job_id)}
-            />
+            <NearbyJobCard job={job} key={'nerby-job-' + job?.job_id} />
           ))
         )}
       </View>

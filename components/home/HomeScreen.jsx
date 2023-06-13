@@ -23,8 +23,8 @@ const HomeScreen = ({navigation}) => {
               // router.push('/search/' + searchTerm);
             }}
           />
-          <Popularjobs />
-          <Nearbyjobs />
+          <Popularjobs navigation={navigation} />
+          <Nearbyjobs navigation={navigation} />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,5 +1,6 @@
-import react, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {jobsSlice} from '../components/store/jobsSlice';
 
 const useFetch = (endPoint, query) => {
   const [data, setData] = useState([]);
@@ -10,7 +11,6 @@ const useFetch = (endPoint, query) => {
     method: 'GET',
     url: 'https://jsearch.p.rapidapi.com/' + endPoint,
     headers: {
-      'content-type': 'application/octet-stream',
       'X-RapidAPI-Key': 'e772de9b23msh9bec34720338093p16c72cjsnb84c48280444',
       'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
     },
@@ -24,10 +24,11 @@ const useFetch = (endPoint, query) => {
     try {
       const response = await axios.request(options);
       setData(response.data.data);
+      // jobsSlice.actions.setJobs(response.data.data);
       setLoading(false);
     } catch (error) {
       setError(error);
-      alert('There is an error, please try again later');
+      alert('There is an error, please try again later. Thank you!' + error);
     } finally {
       // setLoading(false);
     }

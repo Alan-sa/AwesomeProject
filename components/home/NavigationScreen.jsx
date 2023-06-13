@@ -37,7 +37,7 @@ function HomeTabs({navigation}) {
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="bookmark" color={color} size={size} />
           ),
-          headerShown: false,
+          headerShown: true,
         }}
       />
     </Tabs.Navigator>

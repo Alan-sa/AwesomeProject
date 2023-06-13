@@ -10,22 +10,20 @@ import styles from './popularjobs.style';
 import {COLORS, SIZES} from '../../../constants';
 import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import useFetch from '../../../hook/useFetch';
-import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {jobsSlice} from '../../store/jobsSlice';
 
-const Popularjobs = () => {
+const Popularjobs = ({navigation}) => {
   // const router = useRouter();
-  const navigation = useNavigation();
+  const [selectedJob, setSelectedJob] = useState();
+
   const {data, isLoading, error} = useFetch('search', {
-    query: 'React developer',
+    query: 'React Native Developer',
     page: 1,
     num_pages: 1,
   });
-  const [selectedJob, setSelectedJob] = useState();
-  const handleCardPress = item => {
-    // router.push(`/job-details/${item.job_id}`);
-    navigation.navigate('JobDetail', {params: item});
-    setSelectedJob(item.job_id);
-  };
+  // const selectedJobRedux = useSelector(state => state.job.selectedJob);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -48,10 +46,18 @@ const Popularjobs = () => {
               <PopularJobCard
                 item={item}
                 selectedJob={selectedJob}
-                handleCardPress={handleCardPress}
+                key={'popular-job-' + item?.job_id}
+                handleCardPress={() => {
+                  dispatch(jobsSlice.actions.setSelectedJob(item));
+                  // router.push(`/job-details/${item.job_id}`);
+                  // setSelectedJob(item);
+                  // console.warn('jobDetail', jobDetail);
+
+                  navigation.navigate('JobDetail');
+                }}
               />
             )}
-            keyExtractor={item => item?.job_id}
+            // keyExtractor={item => item?.job_id}
             horizontal
             contentContainerStyle={{columnGap: SIZES.medium}}
           />

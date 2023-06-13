@@ -15,19 +15,25 @@ import {
   JobTabs,
   ScreenHeaderBtn,
   Specifics,
-} from '../../components';
+} from '..';
 import {COLORS, icons, SIZES} from '../../constants';
-import useFetch from '../../hook/useFetch';
+// import useFetch from '../../hook/useFetch';
+// import {useSearchParams} from 'react-router-native';
+import {useSelector} from 'react-redux';
 
 const jobTabs = ['About', 'Qualification', 'Responsibilities'];
 
-const JobDetails = ({route, navigation}) => {
-  const params = route.params;
+// const JobDetails = ({route, navigation}) => {
+const JobDetails = () => {
+  // const jobData = route.params;
   // const params = useSearchParams();
   // const router = useRouter();
-  const {data, isLoading, error, refetch} = useFetch('job-details', {
-    job_id: params.id,
-  });
+  const isLoading = false;
+  const error = null;
+  const jobDetail = useSelector(state => state.jobs.selectedJob);
+  // const {data, isLoading, error} = useFetch('job-details', {
+  //   job_id: jobID,
+  // });
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = () => {};
   const [activeTab, setActiveTab] = useState(0);
@@ -38,16 +44,16 @@ const JobDetails = ({route, navigation}) => {
         return (
           <Specifics
             title="Qualification"
-            points={data[0].job_highlights?.Qualifications ?? ['NA']}
+            points={jobDetail?.job_highlights?.Qualifications ?? ['NA']}
           />
         );
       case 'About':
-        return <JobAbout info={data[0].job_description ?? 'NA'} />;
+        return <JobAbout info={jobDetail?.job_description ?? 'NA'} />;
       case 'Responsibilities':
         return (
           <Specifics
             title="Responsibilities"
-            points={data[0].job_highlights?.Responsibilities ?? ['NA']}
+            points={jobDetail?.job_highlights?.Responsibilities ?? ['NA']}
           />
         );
       default:
@@ -95,10 +101,10 @@ const JobDetails = ({route, navigation}) => {
           ) : (
             <View style={{padding: SIZES.medium, paddingBottom: 100}}>
               <Company
-                companyLogo={data[0].employer_logo}
-                jobTitle={data[0].job_title}
-                companyName={data[0].employer_name}
-                location={data[0].job_country}
+                companyLogo={jobDetail?.employer_logo}
+                jobTitle={jobDetail?.job_title}
+                companyName={jobDetail?.employer_name}
+                location={jobDetail?.job_country}
               />
               <JobTabs
                 tabs={jobTabs}
@@ -111,7 +117,7 @@ const JobDetails = ({route, navigation}) => {
         </ScrollView>
         <JobFooter
           url={
-            data[0]?.job_google_link ??
+            jobDetail?.job_google_link ??
             'https://careers.google.com/jobs/results/'
           }
         />

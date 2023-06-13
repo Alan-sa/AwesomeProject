@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Welcome from '../welcome/Welcome';
 import HomeScreen from '../HomeScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import JobDetails from '../../jobdetails/[id]';
+import JobDetails from '../../jobdetails/JobDetails';
 
 const FeedStackNavigator = createNativeStackNavigator();
 
